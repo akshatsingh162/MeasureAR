@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ma_brand">MeasureAR</string>
+
+    <!-- Home -->
+    <string name="home_heading">Measure anything in your space.</string>
+    <string name="home_subtitle">Point your camera at a surface, place two points, and get the distance between them in seconds.</string>
+    <string name="home_how_title">HOW IT WORKS</string>
+    <string name="step1_title">Scan a surface</string>
+    <string name="step1_desc">Move your phone slowly until the crosshair turns teal.</string>
+    <string name="step2_title">Place two points</string>
+    <string name="step2_desc">Aim at the start and tap +, then aim at the end and tap + again.</string>
+    <string name="step3_title">Read the distance</string>
+    <string name="step3_desc">Switch between metres, centimetres, and feet and inches.</string>
+    <string name="home_start">Start Measuring</string>
+    <string name="home_note">Results are estimates. Accuracy depends on lighting, surface texture and how steadily you move.</string>
+    <string name="home_unsupported">This device doesn\'t support the AR technology MeasureAR needs.</string>
+    <string name="cd_demo">Illustration: two points placed on a floor with a distance label between them.</string>
+
+    <!-- Measure: chrome -->
+    <string name="back">Back</string>
+    <string name="undo">Undo</string>
+    <string name="clear">Clear</string>
+    <string name="add_point">Add point</string>
+    <string name="unit_m">m</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_ft_in">ft·in</string>
+    <string name="status_starting">Starting</string>
+    <string name="status_ready">Ready</string>
+    <string name="status_limited">Limited</string>
+
+    <!-- Measure: guidance -->
+    <string name="guidance_starting">Starting camera…</string>
+    <string name="guidance_move_slower">You\'re moving too fast. Slow down.</string>
+    <string name="guidance_more_light">It\'s too dark. Move to a brighter spot.</string>
+    <string name="guidance_more_detail">Point at a surface with more texture or detail.</string>
+    <string name="guidance_camera_busy">The camera is being used by another app.</string>
+    <string name="guidance_tracking_lost">Tracking lost. Move slowly back to where you started.</string>
+    <string name="guidance_scan_surface">Move your phone slowly to detect a surface.</string>
+    <string name="guidance_place_first">Surface found. Aim at your start point and tap +.</string>
+    <string name="guidance_scan_second">Aim at a surface for your second point.</string>
+    <string name="guidance_place_second">Aim at your end point and tap +.</string>
+    <string name="guidance_complete">Measurement complete. Tap + to measure something else.</string>
+
+    <!-- Measure: result card -->
+    <string name="result_label">DISTANCE</string>
+    <string name="result_label_live">MEASURING</string>
+    <string name="result_placeholder">—</string>
+    <string name="caption_empty">Your measurement appears here.</string>
+    <string name="caption_live">Tap + to place this point.</string>
+    <string name="caption_estimate">Estimate. Accuracy varies with light and surface.</string>
+
+    <!-- Blocking screens -->
+    <string name="retry">Try again</string>
+    <string name="back_home">Back to home</string>
+    <string name="perm_title">Camera access needed</string>
+    <string name="perm_message">MeasureAR uses your camera to see and measure your surroundings. Nothing is recorded or uploaded.</string>
+    <string name="perm_allow">Allow camera</string>
+    <string name="perm_settings">Open settings</string>
+    <string name="ar_unsupported_title">Device not supported</string>
+    <string name="ar_unsupported_message">This phone doesn\'t support the AR technology MeasureAR needs.</string>
+    <string name="ar_declined_title">AR services required</string>
+    <string name="ar_declined_message">MeasureAR needs Google Play Services for AR. Please allow the installation and try again.</string>
+    <string name="ar_update_title">Update required</string>
+    <string name="ar_update_message">Please update Google Play Services for AR from the Play Store, then try again.</string>
+    <string name="ar_app_old_title">App update required</string>
+    <string name="ar_app_old_message">This version of MeasureAR is too old for the installed AR services. Please update the app.</string>
+    <string name="ar_error_title">Couldn\'t start AR</string>
+    <string name="ar_error_message">Something went wrong while starting the camera and AR. Please try again.</string>
+    <string name="camera_busy_title">Camera unavailable</string>
+    <string name="camera_busy_message">Another app may be using the camera. Close it and try again.</string>
+</resources>

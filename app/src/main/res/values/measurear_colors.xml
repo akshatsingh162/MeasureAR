@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ma_bg">#0E1116</color>
+    <color name="ma_surface">#161B22</color>
+    <color name="ma_surface_raised">#1E252E</color>
+    <color name="ma_border">#2A323D</color>
+    <color name="ma_text_primary">#F2F5F8</color>
+    <color name="ma_text_secondary">#9AA6B2</color>
+    <color name="ma_accent">#37DCBE</color>
+    <color name="ma_accent_dark">#0A2A26</color>
+    <color name="ma_warning">#FFB24D</color>
+</resources>
