@@ -1,251 +1,264 @@
-MeasureAR – AR & Sensor Toolkit
+# MeasureAR – AR & Sensor Toolkit
 
-MeasureAR is a multi-functional Android application that combines Augmented Reality (AR) and smartphone sensors to provide seven practical measurement and utility tools in a single application.
+**A multi-functional Android application combining Augmented Reality and smartphone sensors to turn your phone into a measurement toolkit.**
 
-Built using Kotlin and Google ARCore, the application enables users to measure real-world distances, heights, and areas through their smartphone camera while also providing sensor-powered utilities such as a digital level, ruler, compass, and light meter.
+MeasureAR is a Kotlin-based Android application featuring **7 practical tools** across AR-based measurement and sensor-powered utilities. It uses Google ARCore for real-world measurements and the Android Sensor Framework for device-based utilities.
 
-Features
+---
 
-MeasureAR offers seven tools divided into two categories.
+## Table of Contents
 
-1. AR Measurement Tools
+- [Overview](#overview)
+- [Features](#features)
+  - [AR Measurement Tools](#1-ar-measurement-tools)
+  - [Sensor Tools](#2-sensor-tools)
+- [Technology Stack](#technology-stack)
+- [Technical Implementation](#technical-implementation)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Device Compatibility](#device-compatibility)
+- [Limitations](#limitations)
+- [Future Improvements](#future-improvements)
 
-Powered by Google ARCore and real-time 3D coordinate tracking.
+---
 
-Tool
+## Overview
 
-Description
+MeasureAR brings together augmented reality, 3D coordinate tracking, OpenGL rendering, and smartphone hardware sensors in a single native Android application.
 
-Distance Measurement
+Instead of relying on separate applications for everyday measurement utilities, users can access seven tools through a unified interface.
 
-Measures the distance between two user-selected points in the real world using ARCore hit testing and 3D coordinates.
+The application is divided into two main categories:
 
-Height Measurement
+- **AR Measure:** Distance, Height, and Area.
+- **Sensor Tools:** Level, Ruler, Compass, and Light Meter.
 
-Calculates vertical distance between two selected points using ARCore's gravity-aligned coordinate system.
+## Features
 
-Area Measurement
+### 1. AR Measurement Tools
 
-Allows users to select up to 12 corners of a surface and calculates its area and perimeter.
+Powered by **Google ARCore**, these tools use camera-based environmental tracking and 3D world coordinates.
 
-AR Capabilities:
+| Tool | Description |
+|---|---|
+| **Distance** | Measures the straight-line distance between two selected points in real-world space. |
+| **Height** | Calculates the vertical difference between two selected points using the gravity-aligned coordinate system. |
+| **Area** | Calculates the area and perimeter of a surface using up to 12 user-selected corners. |
 
-Real-time camera feed rendering.
+#### Key AR Capabilities
 
-Horizontal plane detection.
+- Real-time camera feed rendering.
+- Horizontal plane detection.
+- ARCore hit testing.
+- 3D world-coordinate tracking.
+- Interactive point placement.
+- Visual measurement markers and connecting lines.
+- Real-time measurement calculations.
+- ARCore device compatibility checks.
 
-ARCore hit testing and 3D point selection.
+### 2. Sensor Tools
 
-World-coordinate-based distance calculations.
+Powered by the **Android Sensor Framework**, these utilities make use of available smartphone hardware sensors.
 
-Visual measurement markers and connecting lines.
+| Tool | Description |
+|---|---|
+| **Level** | A digital spirit level using gravity and orientation sensor data, with calibration and reset functionality. |
+| **Ruler** | An on-screen ruler featuring centimetre and inch scales, draggable measurement markers, and manual calibration. |
+| **Compass** | Displays magnetic heading and magnetic field strength using rotation sensor data. |
+| **Light Meter** | Estimates ambient illumination in lux and displays minimum, average, and maximum readings. |
 
-Live measurement updates.
+---
 
-Device ARCore compatibility checks.
+## Technology Stack
 
-2. Sensor Tools
+| Category | Technologies |
+|---|---|
+| Programming Language | Kotlin |
+| Development Environment | Android Studio |
+| Platform | Android SDK |
+| Augmented Reality | Google ARCore |
+| Graphics Rendering | OpenGL ES 2.0 |
+| UI Development | Native Android UI |
+| Device Integration | Android Sensor Framework |
+| AR Processing | Plane Detection, Hit Testing, 3D Coordinates |
+| Build System | Gradle |
 
-Uses built-in Android device sensors to provide additional utilities.
+## Technical Implementation
 
-Tool
+### Augmented Reality and 3D Measurement
 
-Description
+The AR measurement system uses Google ARCore to track the device's position and detect real-world surfaces.
 
-Digital Level
+The general measurement workflow is:
 
-Uses device orientation and gravity sensors to determine whether a surface or phone is level. Includes calibration and reset functionality.
+1. Initialize an ARCore session.
+2. Render the live camera feed using OpenGL ES.
+3. Detect horizontal planes in the environment.
+4. Perform hit testing when the user selects a point.
+5. Obtain the selected point's 3D world coordinates.
+6. Calculate the required measurement.
+7. Render visual markers and measurement indicators.
 
-Ruler
+**Distance Calculation**
 
-Provides an on-screen ruler with centimetre and inch scales, draggable measurement markers, and manual calibration.
+The straight-line distance between two 3D points is calculated using the Euclidean distance formula:
 
-Compass
-
-Uses rotation sensor data to display magnetic heading and magnetic field strength, with calibration warnings.
-
-Light Meter
-
-Uses the ambient light sensor to estimate illumination in lux and displays minimum, average, and maximum readings.
-
-Technology Stack
-
-Category
-
-Technologies
-
-Language
-
-Kotlin
-
-IDE
-
-Android Studio
-
-Platform
-
-Android SDK
-
-Augmented Reality
-
-Google ARCore
-
-Graphics Rendering
-
-OpenGL ES 2.0
-
-UI Development
-
-Native Android UI
-
-Device Integration
-
-Android Sensor Framework
-
-AR Tracking
-
-Plane Detection, Hit Testing, 3D World Coordinates
-
-Build System
-
-Gradle
-
-How It Works
-
-AR Measurement
-
-The AR measurement tools use the device camera and ARCore to understand the surrounding environment.
-
-The application initializes an ARCore session.
-
-The camera feed is rendered in real time.
-
-ARCore detects suitable surfaces and tracks the device's position.
-
-Users select measurement points on detected surfaces.
-
-The selected points are represented using 3D world coordinates.
-
-The application calculates the required measurement and displays the result.
-
-Distance measurements use the Euclidean distance between two 3D points:
-
-[
+$$
 d = \sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}
-]
+$$
 
-Height measurements use the vertical difference between selected points.
+**Height Calculation**
 
-Area measurements use the selected polygon corners to calculate the enclosed area and perimeter.
+Height measurement uses the vertical difference between two selected points along ARCore's gravity-aligned Y-axis:
 
-Sensor-Based Utilities
+$$
+h = |y_2-y_1|
+$$
 
-The sensor tools interact with Android's Sensor Framework to access available hardware sensors.
+**Area Calculation**
 
-Depending on the tool, sensor readings are processed to provide orientation, magnetic heading, gravity-based leveling, and ambient illumination information.
+Area measurement uses the selected corner coordinates to calculate the enclosed polygon area and perimeter.
 
-Installation & Setup
+### Sensor Integration
 
-Prerequisites
+The sensor utilities access available hardware sensors through Android's `SensorManager` APIs.
 
-Android Studio.
+Depending on the tool, sensor readings are processed to determine:
 
-Android device running Android 7.0 (API 24) or later.
+- Device orientation and tilt.
+- Gravity-based leveling.
+- Magnetic heading.
+- Magnetic field strength.
+- Ambient light intensity.
 
-ARCore-compatible device for AR measurement features.
+The application also includes calibration functionality where appropriate to improve usability across different devices.
 
-Camera permission for AR functionality.
+---
 
-Required hardware sensors for individual sensor tools.
+## Project Structure
 
-Clone the Repository
+The project follows a modular Android application structure.
 
-git clone https://github.com/YOUR_USERNAME/MeasureAR.git
+```text
+MeasureAR/
+│
+├── app/
+│   └── src/
+│       └── main/
+│           ├── java/
+│           │   └── com/akshat/measurear/
+│           │       ├── MainActivity.kt
+│           │       ├── ARView.kt
+│           │       ├── BackgroundRenderer.kt
+│           │       └── ...
+│           │
+│           ├── res/
+│           │   ├── drawable/
+│           │   ├── layout/
+│           │   ├── values/
+│           │   └── ...
+│           │
+│           └── AndroidManifest.xml
+│
+├── build.gradle.kts
+├── settings.gradle.kts
+└── README.md
+```
 
-Navigate to the project directory:
+*Note: This is an illustrative overview. Individual source files and directories may differ in the current implementation.*
 
-cd MeasureAR
+---
 
-Open in Android Studio
+## Getting Started
 
-Open Android Studio.
+### Prerequisites
 
-Select Open and choose the cloned project directory.
+- Android Studio.
+- Android SDK.
+- An Android device running Android 7.0 (API 24) or later.
+- An ARCore-compatible device for AR measurement features.
+- Required hardware sensors for individual sensor utilities.
 
-Allow Gradle to sync.
+### 1. Clone the Repository
 
-Connect an Android device.
+```bash
+git clone https://github.com/akshatsingh162/MeasureAR
+```
 
-Enable USB debugging if required.
+### 2. Open the Project
 
-Build and run the application.
+Open the cloned project directory in Android Studio.
 
-The project uses the Google ARCore dependency:
+### 3. Sync Gradle
 
+Allow Android Studio to download the required dependencies and complete Gradle synchronization.
+
+The project uses the following ARCore dependency:
+
+```kotlin
 implementation("com.google.ar:core:1.56.0")
+```
 
-ARCore availability is checked at runtime. Devices without ARCore support can still use the available sensor-based tools.
+### 4. Connect an Android Device
 
-Project Structure
+- Enable Developer Options.
+- Enable USB Debugging.
+- Connect your Android device.
+- Ensure Google Play Services for AR is installed and updated if using AR features.
 
-The application is organised around Android UI components, AR rendering, and device sensor functionality.
+### 5. Build and Run
 
-Key implementation areas include:
+Select your connected device and click **Run** in Android Studio.
 
-MainActivity: Application entry point and primary interface.
+Grant the required permissions when prompted.
 
-ARView: AR rendering view, touch interactions, and display geometry handling.
+---
 
-BackgroundRenderer: OpenGL ES camera background rendering and AR measurement visualization.
+## Device Compatibility
 
-ARCore Integration: Session management, plane detection, hit testing, and world-coordinate tracking.
+MeasureAR supports two categories of functionality with different hardware requirements.
 
-Sensor Tools: Individual utilities that interact with Android device sensors.
+| Functionality | Requirement |
+|---|---|
+| Distance, Height, Area | ARCore-compatible device |
+| Level | Compatible motion/gravity sensors |
+| Ruler | Screen display and manual calibration |
+| Compass | Compatible rotation/magnetic sensors |
+| Light Meter | Ambient light sensor |
 
-Resources: Layouts, drawables, colours, strings, and UI styling.
+ARCore availability is checked at runtime. Devices without ARCore support can still access compatible sensor-based tools.
 
-Refer to the source directories for the complete implementation.
+---
 
-Limitations
+## Limitations
 
-MeasureAR relies on smartphone hardware and environmental conditions. Results should be treated as estimates rather than precision surveying measurements.
+Measurement results depend on device hardware, environmental conditions, and sensor quality.
 
-AR Measurements: Accuracy depends on camera tracking, surface detection, lighting, and point placement.
+| Tool | Known Limitations |
+|---|---|
+| AR Measurement | Accuracy depends on tracking quality, lighting, surface detection, and point placement. |
+| Height | Requires selectable points and cannot automatically detect every physical edge. |
+| Area | Best suited to approximately flat surfaces. Significant height differences between selected corners can make results unreliable. |
+| Level | Depends on sensor accuracy and calibration. |
+| Ruler | Screen DPI varies across devices; manual calibration is recommended. |
+| Compass | Indicates magnetic north rather than true north and can be affected by nearby metal or magnets. |
+| Light Meter | Provides approximate illumination readings and is not a replacement for a dedicated lux meter. |
 
-Height Measurement: Requires selectable points; it cannot automatically detect every physical edge.
+**Note:** MeasureAR is intended for everyday estimation and utility purposes, not professional surveying or precision measurement.
 
-Area Measurement: Best suited to approximately flat surfaces. Significant height differences between corners can make the result unreliable.
+---
 
-Digital Level: Depends on the accuracy of the device's motion sensors and calibration.
+## Future Improvements
 
-Ruler: Screen DPI varies between devices, so manual calibration is recommended.
+- [ ] Measurement history and saved measurements.
+- [ ] Screenshot and measurement export functionality.
+- [ ] Improved AR point-placement feedback.
+- [ ] Enhanced measurement stability.
+- [ ] Additional measurement modes.
+- [ ] Interactive onboarding tutorial.
+- [ ] Expanded device compatibility testing.
+- [ ] UI and performance optimisations.
 
-Compass: Displays magnetic north rather than true north and can be affected by nearby metal or magnets.
+---
 
-Light Meter: Ambient light sensor readings are approximate and are not a substitute for a dedicated lux meter.
-
-Future Improvements
-
-Potential areas for further development include:
-
-Measurement history and saved measurements.
-
-Screenshot and measurement export functionality.
-
-Improved AR point-placement feedback.
-
-Enhanced measurement stability and accuracy.
-
-Additional measurement modes.
-
-Better onboarding and interactive tutorials.
-
-Expanded device compatibility testing.
-
-UI and performance optimisations.
-
-Project Goals
-
-MeasureAR was developed to explore the practical integration of Augmented Reality, 3D coordinate systems, OpenGL rendering, and smartphone hardware sensors within a native Android application.
-
-The project focuses on combining multiple real-world utilities into a single, accessible mobile toolkit while exploring the capabilities and limitations of modern smartphone hardware.
+**MeasureAR – Measure your world, one point at a time.**
