@@ -3,6 +3,7 @@
     <item android:id="@android:id/mask">
         <shape android:shape="oval">
             <solid android:color="#FFFFFFFF" />
+
         </shape>
     </item>
     <item>

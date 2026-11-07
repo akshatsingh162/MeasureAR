@@ -10,7 +10,7 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.util.TypedValue
 
-/** Shared drawing code so the home-screen demo and the live overlay look identical. */
+/** Shared drawing code so the demo and the live overlay look identical. */
 class OverlayPainter(context: Context) {
 
     private val metrics = context.resources.displayMetrics
@@ -44,6 +44,8 @@ class OverlayPainter(context: Context) {
     private val ringShadow = stroke(0x66000000, 5f)
     private val ringStroke = stroke(ACCENT, 2.5f)
 
+    private val polyFill = fill((ACCENT and 0x00FFFFFF) or 0x40000000)
+
     private val idleShadow = stroke(0x55000000, 4.5f)
     private val idleStroke = stroke(0xE6FFFFFF.toInt(), 2f)
     private val dotPaint = fill(Color.WHITE)
@@ -71,6 +73,25 @@ class OverlayPainter(context: Context) {
         linePaint.alpha = alpha
         canvas.drawLine(ax, ay, bx, by, lineShadow)
         canvas.drawLine(ax, ay, bx, by, linePaint)
+    }
+
+    /** Closed polygon from [count] x/y pairs in [coords]; filled when it has 3+ corners. */
+    fun drawPolygon(canvas: Canvas, coords: FloatArray, count: Int, alpha: Int) {
+        if (count < 2 || alpha <= 0) return
+        path.reset()
+        path.moveTo(coords[0], coords[1])
+        for (i in 1 until count) path.lineTo(coords[i * 2], coords[i * 2 + 1])
+        if (count >= 3) {
+            path.close()
+            polyFill.alpha = 0x40 * alpha / 255
+            canvas.drawPath(path, polyFill)
+        }
+        lineShadow.pathEffect = null
+        linePaint.pathEffect = null
+        lineShadow.alpha = alpha * 102 / 255
+        linePaint.alpha = alpha
+        canvas.drawPath(path, lineShadow)
+        canvas.drawPath(path, linePaint)
     }
 
     fun drawMarker(canvas: Canvas, x: Float, y: Float, alpha: Int) {

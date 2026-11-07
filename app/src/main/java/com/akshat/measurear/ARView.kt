@@ -3,6 +3,7 @@ package com.akshat.measurear
 import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
+
 /**
  * Thin GLSurfaceView that can be inflated from XML. The renderer (which needs an ARCore
  * Session) is attached later, once the session exists.

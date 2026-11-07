@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ma_brand">MeasureAR</string>
 
-    <!-- Home -->
-    <string name="home_heading">Measure anything in your space.</string>
-    <string name="home_subtitle">Point your camera at a surface, place two points, and get the distance between them in seconds.</string>
-    <string name="home_how_title">HOW IT WORKS</string>
-    <string name="step1_title">Scan a surface</string>
-    <string name="step1_desc">Move your phone slowly until the crosshair turns teal.</string>
-    <string name="step2_title">Place two points</string>
-    <string name="step2_desc">Aim at the start and tap +, then aim at the end and tap + again.</string>
-    <string name="step3_title">Read the distance</string>
-    <string name="step3_desc">Switch between metres, centimetres, and feet and inches.</string>
-    <string name="home_start">Start Measuring</string>
-    <string name="home_note">Results are estimates. Accuracy depends on lighting, surface texture and how steadily you move.</string>
     <string name="home_unsupported">This device doesn\'t support the AR technology MeasureAR needs.</string>
-    <string name="cd_demo">Illustration: two points placed on a floor with a distance label between them.</string>
 
-    <!-- Measure: chrome -->
     <string name="back">Back</string>
     <string name="undo">Undo</string>
     <string name="clear">Clear</string>
@@ -29,7 +14,6 @@
     <string name="status_ready">Ready</string>
     <string name="status_limited">Limited</string>
 
-    <!-- Measure: guidance -->
     <string name="guidance_starting">Starting camera…</string>
     <string name="guidance_move_slower">You\'re moving too fast. Slow down.</string>
     <string name="guidance_more_light">It\'s too dark. Move to a brighter spot.</string>
@@ -42,7 +26,6 @@
     <string name="guidance_place_second">Aim at your end point and tap +.</string>
     <string name="guidance_complete">Measurement complete. Tap + to measure something else.</string>
 
-    <!-- Measure: result card -->
     <string name="result_label">DISTANCE</string>
     <string name="result_label_live">MEASURING</string>
     <string name="result_placeholder">—</string>
@@ -50,7 +33,6 @@
     <string name="caption_live">Tap + to place this point.</string>
     <string name="caption_estimate">Estimate. Accuracy varies with light and surface.</string>
 
-    <!-- Blocking screens -->
     <string name="retry">Try again</string>
     <string name="back_home">Back to home</string>
     <string name="perm_title">Camera access needed</string>
@@ -69,4 +51,91 @@
     <string name="ar_error_message">Something went wrong while starting the camera and AR. Please try again.</string>
     <string name="camera_busy_title">Camera unavailable</string>
     <string name="camera_busy_message">Another app may be using the camera. Close it and try again.</string>
+
+    <!-- Hub -->
+    <string name="tool_level">Level</string>
+    <string name="tool_level_desc">Bubble level and tilt angle.</string>
+    <string name="tool_compass">Compass</string>
+    <string name="tool_light">Light meter</string>
+    <string name="tool_light_desc">Ambient light in lux.</string>
+
+    <!-- AR modes -->
+    <string name="result_label_height">HEIGHT</string>
+    <string name="result_label_area">AREA</string>
+    <string name="guidance_height_base">Aim at the floor or base and tap +.</string>
+    <string name="guidance_height_top">Now aim at the top point and tap +.</string>
+    <string name="guidance_area_first">Aim at the first corner and tap +.</string>
+    <string name="guidance_area_next">Aim at the next corner and tap +.</string>
+    <string name="guidance_area_scan">Aim at a surface for the next corner.</string>
+    <string name="guidance_area_more">Add more corners, or read the area below.</string>
+    <string name="guidance_area_full">Corner limit reached. Undo or clear to continue.</string>
+    <string name="caption_live_area">Tap + to add this corner.</string>
+    <string name="caption_perimeter">Perimeter %1$s</string>
+    <string name="caption_area_warning">Corners aren\'t on one flat surface. Treat as rough.</string>
+
+    <!-- Level -->
+    <string name="level_calibrate">Calibrate</string>
+    <string name="level_reset">Reset</string>
+    <string name="level_hint">Lay the phone flat, or stand it on its edge against a surface.</string>
+    <string name="level_mode_surface">Flat surface</string>
+    <string name="level_mode_upright">On its edge, upright</string>
+    <string name="level_mode_sideways">On its edge, sideways</string>
+    <string name="level_is_level">Level</string>
+    <string name="level_calibrated">Calibrated to this surface</string>
+    <string name="level_cal_reset">Calibration reset</string>
+    <string name="level_no_sensor">No motion sensor on this device.</string>
+
+    <!-- Ruler -->
+
+    <!-- Compass -->
+
+    <!-- Light meter -->
+    <string name="light_label">AMBIENT LIGHT</string>
+    <string name="light_min">MIN</string>
+    <string name="light_avg">AVG</string>
+    <string name="light_max">MAX</string>
+    <string name="light_reset">Reset min / max</string>
+    <string name="light_hint">Point the top of the phone (near the front camera) toward the light. Phone sensors are only approximate.</string>
+    <string name="light_reference">Living room ≈ 50–150 lx · Office ≈ 300–500 lx · Overcast day ≈ 1,000+ lx · Sunny day ≈ 10,000–100,000 lx</string>
+    <string name="light_no_sensor">No light sensor on this device.</string>
+    <string name="light_cat_0">Near darkness</string>
+    <string name="light_cat_1">Very dim</string>
+    <string name="light_cat_2">Dim</string>
+    <string name="light_cat_3">Low indoor light</string>
+    <string name="light_cat_4">Comfortable indoor light</string>
+    <string name="light_cat_5">Bright indoor light</string>
+    <string name="light_cat_6">Very bright / overcast daylight</string>
+    <string name="light_cat_7">Direct daylight</string>
+
+    <!-- More tools -->
+    <string name="tool_slope">Slope &amp; pitch</string>
+    <string name="tool_slope_desc">Angle, grade % and roof pitch.</string>
+    <string name="tool_flashlight">Flashlight</string>
+    <string name="tool_flashlight_desc">Torch with an SOS mode.</string>
+    <string name="tool_converter">Unit converter</string>
+    <string name="tool_converter_desc">Length, area, volume, mass and more.</string>
+
+    <!-- FieldKit -->
+    <string name="ma_app_name">FieldKit</string>
+    <string name="ma_brand">FieldKit</string>
+    <string name="hub_heading">Know your surroundings.</string>
+    <string name="hub_subtitle">Heading, altitude, weather and daylight at a glance. Built for the trail, the road and the campsite.</string>
+    <string name="hub_note">Estimates only. Phone sensors are no substitute for a map, a proper compass or emergency equipment.</string>
+    <string name="section_now">RIGHT NOW</string>
+    <string name="section_field">FIELD TOOLS</string>
+    <string name="tile_heading">Heading</string>
+    <string name="tile_altitude">Altitude</string>
+    <string name="tile_pressure">Pressure</string>
+    <string name="tile_light">Light</string>
+    <string name="tool_distance">AR measure</string>
+    <string name="tool_distance_desc">Measure sizes and gaps in AR.</string>
+    <string name="tool_compass_desc">True and magnetic north, bearings.</string>
+    <string name="tool_altimeter">Altimeter</string>
+    <string name="tool_altimeter_desc">Altitude, ascent and descent.</string>
+    <string name="tool_weather">Weather trend</string>
+    <string name="tool_weather_desc">Pressure history and storm warning.</string>
+    <string name="tool_location">Location</string>
+    <string name="tool_location_desc">Coordinates, waypoints, way back.</string>
+    <string name="tool_sun">Sun &amp; daylight</string>
+    <string name="tool_sun_desc">Sunrise, sunset, golden hour.</string>
 </resources>

@@ -2,6 +2,7 @@ package com.akshat.measurear
 
 import android.Manifest
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -42,6 +43,7 @@ class MeasureActivity : ComponentActivity(), MeasureRenderer.Listener {
     private var permissionRequestInFlight = false
     private var permissionDenied = false
 
+    private val mode by lazy { MeasureMode.fromName(intent.getStringExtra(EXTRA_MODE)) }
     private var unit = MeasureUnit.CENTIMETERS
     private var lastState = MeasureUiState()
     private var blockingHandler: (() -> Unit)? = null
@@ -179,7 +181,7 @@ class MeasureActivity : ComponentActivity(), MeasureRenderer.Listener {
             val newSession = Session(this)
             configureSession(newSession)
             session = newSession
-            arView.attach(MeasureRenderer(newSession, displayRotationHelper, this))
+            arView.attach(MeasureRenderer(newSession, displayRotationHelper, mode, this))
             return true
 
         } catch (e: UnavailableUserDeclinedInstallationException) {
@@ -347,21 +349,37 @@ class MeasureActivity : ComponentActivity(), MeasureRenderer.Listener {
         )
 
         // Result card
-        val live = state.liveDistanceMeters
-        val shown = live ?: state.lastDistanceMeters
-        resultLabel.setText(if (live != null) R.string.result_label_live else R.string.result_label)
+        val live = state.liveValue
+        val shown = live ?: state.lastValue
+        resultLabel.setText(
+            when {
+                live != null -> R.string.result_label_live
+                mode == MeasureMode.HEIGHT -> R.string.result_label_height
+                mode == MeasureMode.AREA -> R.string.result_label_area
+                else -> R.string.result_label
+            }
+        )
         if (shown == null) {
             resultValue.setText(R.string.result_placeholder)
         } else {
             resultValue.text = buildResultText(shown)
         }
-        resultCaption.setText(
-            when {
-                live != null -> R.string.caption_live
-                shown != null -> R.string.caption_estimate
-                else -> R.string.caption_empty
+        resultCaption.text = when {
+            mode == MeasureMode.AREA && shown != null && state.areaWarning ->
+                getString(R.string.caption_area_warning)
+            live != null ->
+                getString(if (mode == MeasureMode.AREA) R.string.caption_live_area else R.string.caption_live)
+            mode == MeasureMode.AREA && shown != null -> {
+                val perimeter = state.perimeterMeters
+                if (perimeter != null) {
+                    getString(R.string.caption_perimeter, DistanceFormatter.format(perimeter, unit).full)
+                } else {
+                    getString(R.string.caption_estimate)
+                }
             }
-        )
+            shown != null -> getString(R.string.caption_estimate)
+            else -> getString(R.string.caption_empty)
+        }
 
         // Buttons
         undoButton.isEnabled = state.canUndo
@@ -372,7 +390,11 @@ class MeasureActivity : ComponentActivity(), MeasureRenderer.Listener {
     }
 
     private fun buildResultText(meters: Float): CharSequence {
-        val f = DistanceFormatter.format(meters, unit)
+        val f = if (mode == MeasureMode.AREA) {
+            DistanceFormatter.formatArea(meters, unit)
+        } else {
+            DistanceFormatter.format(meters, unit)
+        }
         if (f.unit.isEmpty()) return f.number
         val text = SpannableString("${f.number} ${f.unit}")
         val start = f.number.length
@@ -396,6 +418,13 @@ class MeasureActivity : ComponentActivity(), MeasureRenderer.Listener {
         Guidance.SCAN_SECOND -> R.string.guidance_scan_second
         Guidance.PLACE_SECOND -> R.string.guidance_place_second
         Guidance.COMPLETE -> R.string.guidance_complete
+        Guidance.HEIGHT_BASE -> R.string.guidance_height_base
+        Guidance.HEIGHT_TOP -> R.string.guidance_height_top
+        Guidance.AREA_FIRST -> R.string.guidance_area_first
+        Guidance.AREA_NEXT -> R.string.guidance_area_next
+        Guidance.AREA_SCAN -> R.string.guidance_area_scan
+        Guidance.AREA_MORE -> R.string.guidance_area_more
+        Guidance.AREA_FULL -> R.string.guidance_area_full
     }
 
     private fun handleEvent(event: MeasureEvent) {
@@ -473,9 +502,13 @@ class MeasureActivity : ComponentActivity(), MeasureRenderer.Listener {
         }
     }
 
-    private companion object {
-        const val TAG = "MeasureActivity"
-        const val PREFS = "measurear_prefs"
-        const val KEY_UNIT = "unit"
+    companion object {
+        const val EXTRA_MODE = "measure_mode"
+        private const val TAG = "MeasureActivity"
+        private const val PREFS = "measurear_prefs"
+        private const val KEY_UNIT = "unit"
+
+        fun intent(context: Context, mode: MeasureMode): Intent =
+            Intent(context, MeasureActivity::class.java).putExtra(EXTRA_MODE, mode.name)
     }
 }
